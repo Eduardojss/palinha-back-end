@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('contratantes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('nome');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
-            $table->softDeletes();
+            $table->enum('tipo', ['contratante_fisico', 'contratante_juridico']);
+            $table->string('cpf_cnpj')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('contratantes');
     }
 };
